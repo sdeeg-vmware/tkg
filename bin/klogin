@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# export KUBECTL_VSPHERE_PASSWORD=mypass
+# export SUPERVISOR_USER=administrator@somewhere
+# export GUEST_USER=administrator@somewhere
+
+export SUPERVISOR_CLUSTER_IP=192.168.20.130
+export DEFAULT_SUPERVISOR_NAMESPACE=development-ns
+
+case $1 in
+
+    supervisor )
+        echo "Logging in to supervisor as $SUPERVISOR_USER at IP $SUPERVISOR_CLUSTER_IP"
+        kubectl vsphere login --server $SUPERVISOR_CLUSTER_IP -u $SUPERVISOR_USER \
+                              --insecure-skip-tls-verify
+        ;;
+
+    # TODO: change from white list to looking to see if the cluster is there or not
+    yoyodyne | banzi | dimension8 | tap-cluster )
+        echo "Logging in to guest cluster $1 as $GUEST_USER at IP $SUPERVISOR_CLUSTER_IP"
+        kubectl vsphere login --server $SUPERVISOR_CLUSTER_IP \
+                              --tanzu-kubernetes-cluster-namespace $DEFAULT_SUPERVISOR_NAMESPACE \
+                              --tanzu-kubernetes-cluster-name $1 \
+                              -u $GUEST_USER \
+                              --insecure-skip-tls-verify
+        ;;
+    * )
+        echo "fallout"
+        ;;
+esac
+

@@ -1,0 +1,34 @@
+apiVersion: networking.tkg.tanzu.vmware.com/v1alpha1
+kind: AKODeploymentConfig
+metadata:
+  name: test-node-network-list
+spec:
+  adminCredentialRef:
+    name: avi-controller-credentials
+    namespace: tkg-system-networking
+  certificateAuthorityRef:
+    name: avi-controller-ca
+    namespace: tkg-system-networking
+  cloudName: Default-Cloud
+  clusterSelector:
+    matchLabels:
+      LABEL: LABEL-VALUE
+  controller: 10.185.43.245
+  dataNetwork:
+    cidr: 10.185.32.0/20
+    name: VM Network
+  extraConfigs:
+    disableStaticRouteSync: false                               # required
+    image:
+      pullPolicy: IfNotPresent
+      repository: projects.registry.vmware.com/tkg/ako
+      version: v1.3.2_vmware.1
+    ingress:
+      disableIngressClass: false                                # required
+      nodeNetworkList:                                          # required
+        - cidrs:
+            - 10.185.32.0/20
+          networkName: VM Network
+      serviceType: ClusterIP                                    # required
+      shardVSSize: MEDIUM                                       # required
+  serviceEngineGroup: Default-Group

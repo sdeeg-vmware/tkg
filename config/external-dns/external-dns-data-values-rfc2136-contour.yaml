@@ -1,0 +1,24 @@
+#@data/values
+#@overlay/match-child-defaults missing_ok=True
+---
+externalDns:
+  image:
+    repository: projects.registry.vmware.com/tkg
+  deployment:
+    #@overlay/replace
+    args:
+    - --txt-owner-id=k8s
+    - --registry=txt
+    - --txt-prefix=external-dns-
+    - --provider=rfc2136
+    - --rfc2136-host=192.168.2.20 #! IP of RFC2136 compatible dns server
+    - --rfc2136-port=53
+    - --rfc2136-zone=planet10.lab #! zone where services are deployed
+    - --rfc2136-tsig-secret=ox0TPE5UNdM43iNnNxmrmECZY9hFCeKrMPUoyLwHRubcQbbAdobm8HT+SEoL3iXXRLnk1vC/XURkqcTyFiUNdQ== #! TSIG key authorized to update the DNS server
+    - --rfc2136-tsig-secret-alg=hmac-sha512
+    - --rfc2136-tsig-keyname=planet10.lab-dns-key
+    - --rfc2136-tsig-axfr
+    - --source=contour-httpproxy
+    - --source=service
+    - --domain-filter=planet10.lab #! zone where services are deployed
+    - --rfc2136-min-ttl=60s ## optional TTL in seconds
