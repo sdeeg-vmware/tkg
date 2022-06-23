@@ -36,8 +36,8 @@ cp downloads/tkg-extensions-v1.3.1+vmware.1/extensions/service-discovery/externa
 
 ## Create Cluster
 
-Run the script with a cluster name.  Looks for a file clusters/<name>.yaml, calls kubectl apply -f, then waits
-for the cluster to start.  The <name> in the file name must be the same as as in the TanzuKubernetesCluster definition.
+Run the script with a cluster name.  Looks for a file clusters/my-cluster.yaml, calls kubectl apply -f, then waits
+for the cluster to start.  The my-cluster in the file name must be the same as as in the TanzuKubernetesCluster definition.
 
 ## AKO
 
