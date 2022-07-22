@@ -1,6 +1,6 @@
 # TKG Tools
 
-My set of tools I use to deploy and manage TKG (mostly TKGs) from a Linux "jumpbox".
+My set of tools I use to deploy and manage TKG (mostly TKGs) from a Linux "jumpbox".  These are likely to change a lot with the release of vSphere 8.
 
 ## Requirements
 
@@ -23,6 +23,11 @@ From a raw cluster install: cert-manager, kapp, contour, service-discovery/exter
 LCM with install|update|delete
 
 Keep any config files modified from templates in tkg/config
+
+Do cert-manager first
+tex.sh cert-manager install
+Then kapp
+tex.sh kapp install
 
 ### Contour
 I copied the default configuration using a LoadBalancer to our config files, but didn't modify it.

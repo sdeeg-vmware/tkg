@@ -11,14 +11,16 @@ spec:
       tkr:  
         reference:
           name: v1.21.6---vmware.1-tkg.1.b3d708a
+          #name: v1.22.9---vmware.1-tkg.1.cc71bc8
     nodePools:
     - name: worker-nodepool-a1
-      replicas: 3
+      replicas: 2
       vmClass: best-effort-medium
       storageClass: k8s-gold-storage-policy
       tkr:  
         reference:
           name: v1.21.6---vmware.1-tkg.1.b3d708a
+          #name: v1.22.9---vmware.1-tkg.1.cc71bc8
   settings:
     network:
       trust:

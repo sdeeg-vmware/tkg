@@ -1,0 +1,288 @@
+#@data/values
+#@overlay/match-child-defaults missing_ok=True
+
+---
+# Docker images setting
+image:
+  repository: projects.registry.vmware.com/tkg/harbor
+  tag: v2.1.3_vmware.1
+  pullPolicy: IfNotPresent
+
+# The namespace to install Harbor
+namespace: tanzu-system-registry
+
+# The FQDN for accessing Harbor admin UI and Registry service.
+hostname: registry.dimension8.tkgs.planet10.lab
+# The network port of the Envoy service in Contour or other Ingress Controller.
+port:
+  https: 443
+
+# [Optional] The certificate for the ingress if you want to use your own TLS certificate.
+# We will issue the certificate by cert-manager when it's empty.
+tlsCertificate:
+  # [Required] the certificate
+  tls.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIC9TCCAd2gAwIBAgIUMLwX1Hd0TJtZOgnNoYe0hUbi2B4wDQYJKoZIhvcNAQEL
+    BQAwHzEdMBsGA1UEAwwUbnN4LWFsYi5wbGFuZXQxMC5sYWIwHhcNMjIwNDE5MTcx
+    ODI0WhcNMjMwNDE5MTcxODI0WjAfMR0wGwYDVQQDDBRuc3gtYWxiLnBsYW5ldDEw
+    LmxhYjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANXe8OeoWTniATUm
+    /gjELkvE1OGfIcOJa1nckG86xJE81OhnyQt4JbQkS3m8a7QVcGSitPeaQVM1+F24
+    YeZiSc6hhn7nnWAc5y3ywpBgKkQHx5EQyQiqBxFNgHhU026qq7O7RcnS5zu0S9TI
+    29kxOB63LXQ0cslQTOFEtlZHKUyz3oDHtIpxo2nsgogypUp/15xxPqDJIJwQU80H
+    7D08S3WyaRQpMEciTaGuwdcWNKpPyvYAkpNeUgxhJEduRGJDC5jBe88QTWhYy6HF
+    D6CyGk3a9Tmmz/b50MelClhbLCE5OJpAM6JFmjZwYusbuz0DyCWoQsL1cSgLJM64
+    4TaJ54kCAwEAAaMpMCcwJQYDVR0RBB4wHIcEwKgKPIIUbnN4LWFsYi5wbGFuZXQx
+    MC5sYWIwDQYJKoZIhvcNAQELBQADggEBAGdhxEtQR8fmVgzCtJcOxYOVFVTx/rFB
+    Nu7mjwl+ZOjrV/nMKbWnsa/+/31RISRsTXiOtf1VnrZniIdEtt7Z8T/32WGj/yV/
+    9ntJsSAs2TdhLIdkls2awysnKnOnQZtIXnuvMjAJ6Xrvb6o2DY5Zx5u2m4wzRGre
+    uJTN9ok9/MkWhZJnRrN45UMtlVQbhtY0Fn+Kug7zgYiz0mXk4K6TRrs5oSreWaKY
+    R7BXK1dIJd/qFMSL1kDYDXziss4d9nxEt+jsM/ITVf+hLTPlkGkP1+wUgy1GOr91
+    nvGhJf5bYQ4LfUu3YKicgN5xljqdmE5B2yPZttIEgBxHVZSQno/fsnI=
+    -----END CERTIFICATE-----
+
+  # [Required] the private key
+  tls.key: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDV3vDnqFk54gE1
+    Jv4IxC5LxNThnyHDiWtZ3JBvOsSRPNToZ8kLeCW0JEt5vGu0FXBkorT3mkFTNfhd
+    uGHmYknOoYZ+551gHOct8sKQYCpEB8eREMkIqgcRTYB4VNNuqquzu0XJ0uc7tEvU
+    yNvZMTgety10NHLJUEzhRLZWRylMs96Ax7SKcaNp7IKIMqVKf9eccT6gySCcEFPN
+    B+w9PEt1smkUKTBHIk2hrsHXFjSqT8r2AJKTXlIMYSRHbkRiQwuYwXvPEE1oWMuh
+    xQ+gshpN2vU5ps/2+dDHpQpYWywhOTiaQDOiRZo2cGLrG7s9A8glqELC9XEoCyTO
+    uOE2ieeJAgMBAAECggEBANIOVa4xuvEO+QCre3ZAuPfSKwQut4rFvZpU98dHgSjl
+    Bnf894k8SEvWGgtG9MG7DNjKtdM6vk5sA7SJFB6jCrrYCrE562gq+yQ1+sKysNCA
+    k5H3WnwYAzkLVdLZ/ZAEMQAmPzUq39HUE2a6oLOBlA0W/J3Vpaf0Jo5aXnv/CKE7
+    fIsi5OKq3wlw0bNTy1y5F/HNLrpcPCMhOx/ssMGEvXxiJum5pCR3LO7RDsJiMrZX
+    BCrQcbqhV/RtkW7tQQrHPYmSmumKUiAdHZWm9LYmwg0JjsUFU3ekQXaVH5VVgsLB
+    sYITE5kKQ5gHbBheA7uWoO7XRdWzDYlYTVK0PonKIAECgYEA9GhxOl0JQ7V8olqR
+    m4PZzfZIuXljAZ++1axXrxt0x6Sk5P8WyDUfrRJiV2WT0228OgnFscOe39pnAAzX
+    Vf8WPAJKbcX+j2jCuCNR4uOLf2bW88J7qdMjapSO7US1HmUxDVhBM9Fi1f5iOF/j
+    cGLFD2jWAluWlwWPUGlfQYXIH8kCgYEA4AO4+5ZHFiBstpvSS9N8Jdv463KSIUdq
+    wyqFSHdIH5ajXHRkwe3ifITe2PZPUzQCwbkMwddfKEsG6J4eWD4bZ9xl+6kWmHn1
+    J5dgXIoiX2OxPAO4Ub3NItTht9tgNwAJ/1XU6iHWPnNyHnRFeuv1LKg8HsDeTF9L
+    cPSl2j3c6cECgYAqugt5WYRiGtskAtNLrZwo/nIuQoNFaGjTL+LQUOt0b1sIUXPp
+    IihceEdK4g4auydZuhWegwVGOwcgoh4PAZ4gdYIPeLqM1ZKc4EfTc1YSuqa/THOT
+    975MRpZJ8mX7X1NY8uHLLkKqCGOhWVoIbqvmirxHAz3rPuST+SfW641VyQKBgQC2
+    /lN+MaSgTpyAD4oapwgjZS5SJ6V3yf9Mrs9yAv7HzyZjwDEOumTpkyD32z2xmism
+    VSQ2tNjm8WMTYxcmvpVkooYsrlPm+rlpPh9ZeP3bLnT5sZBANev9KCm7J1nRlBaW
+    nmbvW/THz0bJ2fFoGJiPgl6aQLNXcAEQpMlXHnH4AQKBgFWbpbTS936mvON0oqVL
+    kBsTC312cNMu2WkUHOZFJbAiTSTRIyHJBaw5dGOerRkKOhUwEjIH/zmKBZBRb0eF
+    4sXjRb6A4f9Sld82GNWS0lVc+kDTiFq7THBNCDSAlY7F08T+PeCdaJX/boY91kzr
+    YLGlMgBc4NZ2EWlEfrLLqPBs
+    -----END PRIVATE KEY-----
+
+  # [Optional] the certificate of CA, this enables the download
+  # link on portal to download the certificate of CA
+  ca.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIEejCCAuKgAwIBAgIRALGSvSBXsom49CViNWrlORswDQYJKoZIhvcNAQELBQAw
+    VTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMRUwEwYDVQQLDAxwaXZv
+    dGFsQHVkZXYxHDAaBgNVBAMME21rY2VydCBwaXZvdGFsQHVkZXYwHhcNMjAwNTI4
+    MTYxNzA3WhcNMzAwNTI4MTYxNzA3WjBVMR4wHAYDVQQKExVta2NlcnQgZGV2ZWxv
+    cG1lbnQgQ0ExFTATBgNVBAsMDHBpdm90YWxAdWRldjEcMBoGA1UEAwwTbWtjZXJ0
+    IHBpdm90YWxAdWRldjCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAMdZ
+    6GsfMbzEtKbtaSQ5NHZXxE/LnnY8kO5kMAc9tvG7xhKzCREehwqCvzau0wpuWCjU
+    6FZPFal6xA7ODyZmRfbHFDVdThiOh3WMjObEvmJURgi6QPlSpSbk0s2fNaG/kZDP
+    txHfQmraY4JPomHkuCsRJILhvj6RC2+pIPYdl6Pv9mJBxuZjK54oW7mQaJiWBvqW
+    OLUAPfNKyV9B+9HfHowKdL2nO2Qt0FYTLQ8HvpBH3Q3CgAtV6RBBePPg2iBd7TDW
+    PptevM000vqTa0fl4WtL7HH2v3JNyFOljo0tKAJgzymUQR3HJj9uFruSQWSjopty
+    XVT1w9sJjTewlj2lIi7FNz2DMZtWbJc6E39ajSz/rimQ2ycdnOIK7DsY/WeRzMhx
+    A4ooGq8g8wc+WpmRRaeXyjoI6n2IBT5hiSwjUV8SV2iI8J/jGcKDu6W+nuiWro7i
+    oYhnEkghy/l0TmVncSQ1OFCjv1dDyCnoTGDoXcG1vMsOUiGrotx2GvuJyyNixQID
+    AQABo0UwQzAOBgNVHQ8BAf8EBAMCAgQwEgYDVR0TAQH/BAgwBgEB/wIBADAdBgNV
+    HQ4EFgQUoG1RvUhOr3GCb6OmlG9xNH/7TkwwDQYJKoZIhvcNAQELBQADggGBAJ7u
+    WBisIOTd8TZDGUMvwJHdP0qJ/FJ/J3yq/L3DeMzpQfe2D96M0R6MJ2J1WK13PghK
+    tSxahV6ArGvygk9aN+7tJwy0P5mLTQOA+KN8HKROGkUML5HY6AA6nVnPJYUXo2nX
+    4Zdxx5FTBYntGIYowPNZpyMoWVBvqbxspGObXZYxLoKiBUeG5D26LzHyZS50wyca
+    tPeO1PjW52RS49neGAgeH+O+0BwkYTcWoAjUqrOjUHLXycOc2W7bBiQJaZSGvVmP
+    8Fxiqy2YO9WTowHrX91vHOyTAEnzhXoEcwivwo7SOTZomNzEyM8jnv5+ycT0Yg3a
+    qaJb3DYosEl0vkL/EkVL6wvbCp+w2rXJC0dGv67GB+XrF3gCgfdhuB+mSNawQs0m
+    lzRu26RBpZLHuFlft2LUY1plVmQrtDSdS+tAndXJ7t5CwHTE02kn3hlb8ZBbKObn
+    s/eKJFFm1xIMHYrAM5gk1WVieFnbGdxMZhbPUjM9CYAUAVVJh7NF3smKNVx5kQ==
+    -----END CERTIFICATE-----
+
+# Use contour http proxy instead of the ingress when it's true
+enableContourHttpProxy: true
+
+# [Required] The initial password of Harbor admin.
+harborAdminPassword: bddC7SFUYH9WjHXQ
+
+# [Required] The secret key used for encryption. Must be a string of 16 chars.
+secretKey: jK0d3G1mDBottiBQ
+
+database:
+  # [Required] The initial password of the postgres database.
+  password: KIBdAqcVD5RWLs5u
+
+core:
+  # [Required] Secret is used when core server communicates with other components.
+  secret: BYCGeNLmv0QOINlP
+  # [Required] The XSRF key. Must be a string of 32 chars.
+  xsrfKey: PWoNd0F4KxDFUxx9iXUd3SH5W45KwZy9
+
+  replicas: 1
+
+jobservice:
+  replicas: 1
+  # [Required] Secret is used when job service communicates with other components.
+  secret: S0AH4YVqkDGHrK4s
+registry:
+  replicas: 1
+  # [Required] Secret is used to secure the upload state from client
+  # and registry storage backend.
+  # See: https://github.com/docker/distribution/blob/master/docs/configuration.md#http
+  secret: QbYmvVReUWchPsQ5
+notary:
+  # Whether to install Notary
+  enabled: true
+clair:
+  # Whether to install Clair scanner
+  enabled: true
+  replicas: 1
+  # The interval of clair updaters, the unit is hour, set to 0 to
+  # disable the updaters
+  updatersInterval: 12
+trivy:
+  # enabled the flag to enable Trivy scanner
+  enabled: true
+  replicas: 1
+  # gitHubToken the GitHub access token to download Trivy DB
+  gitHubToken: ""
+  # skipUpdate the flag to disable Trivy DB downloads from GitHub
+  #
+  # You might want to set the value of this flag to `true` in test or CI/CD environments to avoid GitHub rate limiting issues.
+  # If the value is set to `true` you have to manually download the `trivy.db` file and mount it in the
+  # `/home/scanner/.cache/trivy/db/trivy.db` path.
+  skipUpdate: false
+
+# The persistence is always enabled and a default StorageClass
+# is needed in the k8s cluster to provision volumes dynamicly.
+# Specify another StorageClass in the "storageClass" or set "existingClaim"
+# if you have already existing persistent volumes to use
+#
+# For storing images and charts, you can also use "azure", "gcs", "s3",
+# "swift" or "oss". Set it in the "imageChartStorage" section
+persistence:
+  persistentVolumeClaim:
+    registry:
+      # Use the existing PVC which must be created manually before bound,
+      # and specify the "subPath" if the PVC is shared with other components
+      existingClaim: ""
+      # Specify the "storageClass" used to provision the volume. Or the default
+      # StorageClass will be used(the default).
+      # Set it to "-" to disable dynamic provisioning
+      storageClass: "k8s-gold-storage-policy"
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 10Gi
+    jobservice:
+      existingClaim: ""
+      storageClass: "k8s-gold-storage-policy"
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    database:
+      existingClaim: ""
+      storageClass: "k8s-gold-storage-policy"
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    redis:
+      existingClaim: ""
+      storageClass: "k8s-gold-storage-policy"
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    trivy:
+      existingClaim: ""
+      storageClass: "k8s-gold-storage-policy"
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 5Gi
+  # Define which storage backend is used for registry and chartmuseum to store
+  # images and charts. Refer to
+  # https://github.com/docker/distribution/blob/master/docs/configuration.md#storage
+  # for the detail.
+  imageChartStorage:
+    # Specify whether to disable `redirect` for images and chart storage, for
+    # backends which not supported it (such as using minio for `s3` storage type), please disable
+    # it. To disable redirects, simply set `disableredirect` to `true` instead.
+    # Refer to
+    # https://github.com/docker/distribution/blob/master/docs/configuration.md#redirect
+    # for the detail.
+    disableredirect: false
+    # Specify the "caBundleSecretName" if the storage service uses a self-signed certificate.
+    # The secret must contain keys named "ca.crt" which will be injected into the trust store
+    # of registry's and chartmuseum's containers.
+    # caBundleSecretName:
+
+    # Specify the type of storage: "filesystem", "azure", "gcs", "s3", "swift",
+    # "oss" and fill the information needed in the corresponding section. The type
+    # must be "filesystem" if you want to use persistent volumes for registry
+    # and chartmuseum
+    type: filesystem
+    filesystem:
+      rootdirectory: /storage
+      #maxthreads: 100
+    azure:
+      accountname: accountname # required
+      accountkey: base64encodedaccountkey # required
+      container: containername # required
+      realm: core.windows.net # optional
+    gcs:
+      bucket: bucketname # required
+      # The base64 encoded json file which contains the key
+      encodedkey: base64-encoded-json-key-file # optional
+      rootdirectory: null # optional
+      chunksize: 5242880 # optional
+    s3:
+      region: us-west-1 # required
+      bucket: bucketname # required
+      accesskey: null # eg, awsaccesskey
+      secretkey: null # eg, awssecretkey
+      regionendpoint: null # optional, eg, http://myobjects.local
+      encrypt: false # optional
+      keyid: null # eg, mykeyid
+      secure: true # optional
+      v4auth: true # optional
+      chunksize: null # optional
+      rootdirectory: null # optional
+      storageclass: STANDARD # optional
+    swift:
+      authurl: https://storage.myprovider.com/v3/auth
+      username: username
+      password: password
+      container: containername
+      region: null # eg, fr
+      tenant: null # eg, tenantname
+      tenantid: null # eg, tenantid
+      domain: null # eg, domainname
+      domainid: null # eg, domainid
+      trustid: null # eg, trustid
+      insecureskipverify: null # bool eg, false
+      chunksize: null # eg, 5M
+      prefix: null # eg
+      secretkey: null # eg, secretkey
+      accesskey: null # eg, accesskey
+      authversion: null # eg, 3
+      endpointtype: null # eg, public
+      tempurlcontainerkey: null # eg, false
+      tempurlmethods: null # eg
+    oss:
+      accesskeyid: accesskeyid
+      accesskeysecret: accesskeysecret
+      region: regionname
+      bucket: bucketname
+      endpoint: null # eg, endpoint
+      internal: null # eg, false
+      encrypt: null # eg, false
+      secure: null # eg, true
+      chunksize: null # eg, 10M
+      rootdirectory: null # eg, rootdirectory
+
+# The http/https network proxy for clair, core, jobservice, trivy
+proxy:
+  httpProxy:
+  httpsProxy:
+  noProxy: 127.0.0.1,localhost,.local,.internal
