@@ -2,7 +2,7 @@
 
 CLUSTER_NAME=$1
 CLUSTER_YAML=clusters/${CLUSTER_NAME}.yaml
-TKGS_NAMESPACE=development-ns
+TKGS_NAMESPACE=development
 MAX_DURATION=1800
 
 #TODO: test for file.  check for directory.  check for directory above.
