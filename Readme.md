@@ -2,6 +2,8 @@
 
 My set of tools I use to deploy and manage TKG (mostly TKGs) from a Linux "jumpbox".  These are likely to change a lot with the release of vSphere 8.
 
+Note: As of this update (Fall 2022) I use an Ubuntu 20.4 Server VM.  Our tools have some subtle issues with 22.x.  imgpkg specifically failed to reolocate images.
+
 ## Requirements
 
 Assumes TANZU_NET_USER and TANZU_NET_PASSWORD are set in the user env or sourceable from a script 

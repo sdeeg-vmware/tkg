@@ -5,7 +5,7 @@ source $HOME/.sekrits/TKGs_creds
 # export SUPERVISOR_USER=administrator@somewhere
 # export GUEST_USER=administrator@somewhere
 
-export SUPERVISOR_CLUSTER_IP=192.168.21.66
+export SUPERVISOR_CLUSTER_IP=192.168.21.65
 export DEFAULT_SUPERVISOR_NAMESPACE=development
 
 case $1 in
@@ -17,7 +17,7 @@ case $1 in
         ;;
 
     # TODO: change from white list to looking to see if the cluster is there or not
-    yoyodyne | banzi | dimension8 | tap-cluster )
+    yoyodyne | banzai | dimension8 | tap-cluster )
         echo "Logging in to guest cluster $1 as $SUPERVISOR_USER at IP $SUPERVISOR_CLUSTER_IP"
         kubectl vsphere login --server $SUPERVISOR_CLUSTER_IP \
                               --tanzu-kubernetes-cluster-namespace $DEFAULT_SUPERVISOR_NAMESPACE \

@@ -1,0 +1,18 @@
+apiVersion: run.tanzu.vmware.com/v1alpha3
+kind: TanzuKubernetesCluster
+metadata:
+  name: banzai
+spec:
+  topology:
+    controlPlane:
+      replicas: 1
+      vmClass: best-effort-medium
+      storageClass: k8s-storage-policy
+      tkr:
+        reference:
+          name: v1.22.9---vmware.1-tkg.1.cc71bc8
+    nodePools:
+    - replicas: 1
+      name: worker
+      vmClass: best-effort-medium
+      storageClass: k8s-storage-policy

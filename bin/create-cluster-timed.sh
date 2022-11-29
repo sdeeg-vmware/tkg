@@ -20,8 +20,8 @@ if [[ $(kubectl config get-contexts | grep ${TKGS_NAMESPACE} | grep '*') ]]; the
     else
       echo "Creating cluster ${CLUSTER_NAME}"
       kubectl apply -f $CLUSTER_YAML
-      echo "Give the cluster a chance to come up"
-      sleep 10
+      echo "Wait a minute to give the cluster a chance to come up before polling"
+      sleep 60
     fi
     SECONDS=0
     while :
@@ -36,7 +36,7 @@ if [[ $(kubectl config get-contexts | grep ${TKGS_NAMESPACE} | grep '*') ]]; the
         echo "no ${CLUSTER_NAME}: ${duration}"
       fi
       if [ $duration -ge $MAX_DURATION ]; then echo "Outta time"; break; fi
-      sleep 5
+      sleep 10
     done
 elif [[ $(kubectl config get-contexts | grep ${TKGS_NAMESPACE}) ]]; then
     echo "${TKGS_NAMESPACE} exists but is not selected"
