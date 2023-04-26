@@ -10,7 +10,7 @@ spec:
       storageClass: k8s-gold-storage-policy
       tkr:  
         reference:
-          name: v1.21.6---vmware.1-tkg.1.b3d708a
+          name: v1.24.9---vmware.1-tkg.4
     nodePools:
     - name: worker-nodepool-a1
       replicas: 3
@@ -18,7 +18,7 @@ spec:
       storageClass: k8s-gold-storage-policy
       tkr:  
         reference:
-          name: v1.21.6---vmware.1-tkg.1.b3d708a
+          name: v1.24.9---vmware.1-tkg.4
   # settings:
   #   network:
   #     trust:

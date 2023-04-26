@@ -7,16 +7,6 @@ export INSTALL_REGISTRY_HOSTNAME=registry.tanzu.vmware.com
 export INSTALL_REGISTRY_USERNAME=$TANZU_NET_USER
 export INSTALL_REGISTRY_PASSWORD=$TANZU_NET_PASSWORD
 
-function createKAppNS() {
-echo "## Creating namespace kapp-controller"
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: kapp-controller
-EOF
-}
-
 function createKAppSecret() {
 echo "## Creating secret kapp-controller-config"
 cat <<EOF | kubectl apply -f -
@@ -36,7 +26,7 @@ cd $HOME/tkg/downloads/tanzu-cluster-essentials
 
 case $1 in
     install )
-        createKAppNS
+        kubectl create namespace kapp-controller
         createKAppSecret
         ./install.sh --yes
         ;;
